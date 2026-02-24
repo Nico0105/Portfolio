@@ -1,0 +1,467 @@
+/* ================================================
+   HOME — Home.css
+   ================================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+/* ---------- Loading Screen ---------- */
+
+.loader-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #060610 0%, #0b0b1f 35%, #08100d 65%, #06060f 100%);
+  overflow: hidden;
+}
+
+.loader-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.loader-ambient {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: background 0.5s ease;
+}
+
+.loader-percentage {
+  font-family: "Courier New", monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  line-height: 1;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+  user-select: none;
+}
+
+.loader-percentage-symbol {
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+
+.loader-bar-container {
+  position: relative;
+  width: clamp(180px, 35vw, 360px);
+}
+
+.loader-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-family: "Courier New", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+.loader-bar-track {
+  width: 100%;
+  height: 2px;
+  background: #ffffff08;
+  border-radius: 999px;
+  position: relative;
+  overflow: visible;
+}
+
+.loader-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.15s ease-out, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.loader-bar-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.15s ease-out, box-shadow 0.4s ease;
+}
+
+.loader-done {
+  position: absolute;
+  font-size: 1.8rem;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* ---------- Home ---------- */
+
+.home-wrapper {
+  background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a0f0a 100%);
+  color: #fff;
+  font-family: "Syne", sans-serif;
+}
+
+/* ---------- Hero ---------- */
+
+.home-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.home-title {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -3px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.home-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  color: #aaa;
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero 3D spheres */
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.floating-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(1px);
+  will-change: transform;
+}
+
+.sphere-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 15%;
+  background: radial-gradient(circle at 30% 30%, rgba(120, 255, 100, 0.4), rgba(120, 255, 100, 0.05));
+  box-shadow: 0 0 60px rgba(120, 255, 100, 0.3), inset -20px -20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.sphere-2 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  right: 10%;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.4), rgba(0, 212, 255, 0.05));
+  box-shadow: 0 0 50px rgba(0, 212, 255, 0.3), inset -15px -15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.sphere-3 {
+  width: 250px;
+  height: 250px;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 0, 255, 0.3), rgba(255, 0, 255, 0.02));
+  box-shadow: 0 0 70px rgba(255, 0, 255, 0.2), inset -30px -30px 80px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Shared section labels ---------- */
+
+.section-number-label {
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  color: #ffffff25;
+  letter-spacing: 0.25em;
+}
+
+.section-title {
+  font-family: "Syne", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+/* ---------- Projects ---------- */
+
+.projects-section {
+  padding: 80px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.projects-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.projects-grid-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.projects-grid-bottom {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 12px;
+}
+
+.project-card-wrapper {
+  height: 300px;
+}
+
+.project-card {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.project-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card-img {
+  transform: scale(1.08);
+}
+
+.project-card-header {
+  position: absolute !important;
+  z-index: 10;
+  top: 12px !important;
+  left: 12px !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.project-lang {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: "Courier New", monospace;
+  margin: 0 0 4px;
+}
+
+.project-name {
+  font-family: "Syne", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+.project-card-footer {
+  background: rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px !important;
+}
+
+.project-footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.project-footer-title {
+  font-family: "Syne", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-footer-desc {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projects-loading {
+  font-family: "Courier New", monospace;
+  font-size: 0.85rem;
+  color: #ffffff40;
+  text-align: center;
+  letter-spacing: 0.2em;
+  padding: 80px 0;
+}
+
+/* ---------- Skills ---------- */
+
+.skills-section {
+  padding: 80px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.skills-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  cursor: default;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.skill-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: color-mix(in srgb, var(--skill-color) 40%, transparent);
+}
+
+.skill-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--skill-color) 50%, transparent));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--skill-color) 80%, transparent));
+  transform: scale(1.1);
+}
+
+.skill-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.skill-name {
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.skill-card:hover .skill-name {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.skill-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--skill-color) 10%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.skill-card:hover .skill-glow {
+  opacity: 1;
+}
+
+/* ---------- Footer ---------- */
+
+.home-footer {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #444;
+  font-size: 0.85rem;
+  border-top: 1px solid #ffffff06;
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .projects-grid-top {
+    grid-template-columns: 1fr;
+  }
+  .projects-grid-bottom {
+    grid-template-columns: 1fr;
+  }
+  .projects-section,
+  .skills-section {
+    padding: 60px 20px;
+  }
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 14px;
+  }
+}
