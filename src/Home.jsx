@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { Card, CardHeader, CardFooter, Image, Button } from "@heroui/react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardFooter, Image, Button } from "@heroui/react";
 import ingeniaPrintImg from "./assets/IngeniaPrint.png";
+import ScouterImg from "./assets/Scouter.png";
 import "./Home.css";
 
 // ============================================================
@@ -12,8 +13,7 @@ const GITHUB_USER = "Nico0105";
 const REPOS_CONFIG = [
   { name: "Ingenia-Print-Campus", customImage: ingeniaPrintImg },
   { name: "GestorEntrenamientos",  customImage: null },
-  { name: "Scouter",               customImage: null },
-  { name: "Portfolio",             customImage: null },
+  { name: "Scouter",               customImage: ScouterImg },
 ];
 
 // ============================================================
@@ -100,6 +100,24 @@ const SKILLS = [
     ),
   },
   {
+    name: "Python",
+    color: "#3776AB",
+    svg: (
+      <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+        <linearGradient id="py1" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#5A9FD4"/>
+          <stop offset="1" stopColor="#306998"/>
+        </linearGradient>
+        <linearGradient id="py2" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#FFD43B"/>
+          <stop offset="1" stopColor="#FFE873"/>
+        </linearGradient>
+        <path fill="url(#py1)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"/>
+        <path fill="url(#py2)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.548v23.508c0 6.693 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"/>
+      </svg>
+    ),
+  },
+  {
     name: "Tailwind CSS",
     color: "#06B6D4",
     svg: (
@@ -109,6 +127,22 @@ const SKILLS = [
     ),
   },
 ];
+
+// ============================================================
+// ZOOM TITLE
+// ============================================================
+function ZoomTitle({ text, start }) {
+  return (
+    <motion.h1
+      className="home-title"
+      initial={{ scale: 4, opacity: 0, filter: "blur(20px)" }}
+      animate={start ? { scale: 1, opacity: 1, filter: "blur(0px)" } : {}}
+      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {text}
+    </motion.h1>
+  );
+}
 
 // ============================================================
 // LOADING SCREEN
@@ -243,8 +277,8 @@ function ProjectsSection() {
     );
   }
 
-  const top    = projects.slice(0, 3);
-  const bottom = projects.slice(3, 5);
+  const featured = projects[0];
+  const rest     = projects.slice(1, 3);
 
   return (
     <motion.section
@@ -259,68 +293,115 @@ function ProjectsSection() {
         <h3 className="section-title">Proyectos</h3>
       </div>
 
-      <div className="projects-grid-top">
-        {top.map((project, i) => (
-          <motion.div
-            key={project.id}
-            className="project-card-wrapper"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 * i, duration: 0.5 }}
-          >
-            <Card
-              className="project-card"
-              as="a"
-              href={project.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <CardHeader className="project-card-header">
-                <p className="project-lang">{project.language || "Proyecto"}</p>
-                <h4 className="project-name">{project.name.replace(/-/g, " ")}</h4>
-              </CardHeader>
-              <Image removeWrapper alt={project.name} className="project-card-img" src={getImage(project)} />
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="projects-grid-bottom">
-        {bottom.map((project, i) => (
-          <motion.div
-            key={project.id}
-            className="project-card-wrapper"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 + 0.1 * i, duration: 0.5 }}
-          >
-            <Card
-              isFooterBlurred
-              className="project-card"
-              as="a"
-              href={project.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <CardHeader className="project-card-header">
-                <p className="project-lang">{project.language || "Proyecto"}</p>
-                <h4 className="project-name">{project.name.replace(/-/g, " ")}</h4>
-              </CardHeader>
-              <Image removeWrapper alt={project.name} className="project-card-img" src={getImage(project)} />
+      {/* Featured — 1 grande */}
+      {featured && (
+        <motion.div
+          className="project-card-wrapper project-card-featured"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <a href={featured.html_url} target="_blank" rel="noopener noreferrer" className="project-card-link">
+            <Card isFooterBlurred className="project-card">
+              <Image removeWrapper alt={featured.name} className="project-card-img project-card-img-featured" src={getImage(featured)} />
               <CardFooter className="project-card-footer">
                 <div className="project-footer-info">
-                  <p className="project-footer-title">{project.name.replace(/-/g, " ")}</p>
+                  <p className="project-footer-title">{featured.name.replace(/-/g, " ")}</p>
                   <p className="project-footer-desc">
-                    {project.description ? project.description.substring(0, 55) + "..." : "Ver en GitHub"}
+                    {featured.description ? featured.description.substring(0, 80) + "..." : "Ver en GitHub"}
                   </p>
                 </div>
                 <Button radius="full" size="sm" color="primary">GitHub</Button>
               </CardFooter>
             </Card>
+          </a>
+        </motion.div>
+      )}
+
+      {/* 2 abajo */}
+      <div className="projects-grid-bottom">
+        {rest.map((project, i) => (
+          <motion.div
+            key={project.id}
+            className="project-card-wrapper"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 + 0.1 * i, duration: 0.5 }}
+          >
+            <a href={project.html_url} target="_blank" rel="noopener noreferrer" className="project-card-link">
+              <Card isFooterBlurred className="project-card">
+                {project.customImage ? (
+                  <Image removeWrapper alt={project.name} className="project-card-img" src={getImage(project)} />
+                ) : (
+                  <div className="project-card-placeholder">
+                    <span className="project-card-placeholder-name">{project.name.replace(/-/g, " ")}</span>
+                  </div>
+                )}
+                <CardFooter className="project-card-footer">
+                  <div className="project-footer-info">
+                    <p className="project-footer-title">{project.name.replace(/-/g, " ")}</p>
+                    <p className="project-footer-desc">
+                      {project.description ? project.description.substring(0, 55) + "..." : "Ver en GitHub"}
+                    </p>
+                  </div>
+                  <Button radius="full" size="sm" color="primary">GitHub</Button>
+                </CardFooter>
+              </Card>
+            </a>
           </motion.div>
         ))}
+      </div>
+    </motion.section>
+  );
+}
+
+// ============================================================
+// ABOUT SECTION
+// ============================================================
+function AboutSection() {
+  return (
+    <motion.section
+      className="about-section"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+    >
+      <div className="about-header">
+        <span className="section-number-label">03</span>
+        <h3 className="section-title">Sobre mí</h3>
+      </div>
+
+      <div className="about-content">
+        <motion.p
+          className="about-text"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          Soy <span className="about-highlight">Nicolás Escolar</span>, desarrollador web
+          Full Stack. Me especializo en el frontend con{" "}
+          <span className="about-highlight">React y JavaScript</span>, y en el backend con{" "}
+          <span className="about-highlight">Node.js, Java y Python</span>. Actualmente
+          trabajo de manera <span className="about-highlight">freelance</span> y estoy
+          cursando el último año de la carrera de{" "}
+          <span className="about-highlight">Analista de Sistemas</span> en la Universidad
+          Davinci.
+        </motion.p>
+
+        <motion.p
+          className="about-text"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.35, duration: 0.6 }}
+        >
+          Aprendo rápido y me gusta mucho lo que hago — construir cosas que funcionen bien
+          y se vean mejor.
+        </motion.p>
       </div>
     </motion.section>
   );
@@ -339,7 +420,7 @@ function SkillsSection() {
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
       <div className="skills-header">
-        <span className="section-number-label">03</span>
+        <span className="section-number-label">04</span>
         <h3 className="section-title">Skills</h3>
       </div>
 
@@ -381,52 +462,26 @@ export default function Home() {
       {loading && <LoadingScreen onFinish={() => setLoading(false)} />}
 
       <main className="home-wrapper">
-        {/* HERO */}
         <section className="home-hero">
-          <div className="hero-background">
-            <motion.div
-              className="floating-sphere sphere-1"
-              animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="floating-sphere sphere-2"
-              animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="floating-sphere sphere-3"
-              animate={{ y: [0, -10, 0], rotate: [0, 3, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
+         
 
-          <motion.h1
-            className="home-title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            Tu Nombre
-          </motion.h1>
+          <ZoomTitle text="Nicolás Escolar" start={!loading} />
           <motion.p
             className="home-subtitle"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
           >
-            Full Stack Developer · Creative Coder
+            Full Stack Developer · Web Developer
           </motion.p>
         </section>
 
-        {/* PROJECTS */}
         <ProjectsSection />
-
-        {/* SKILLS */}
+        <AboutSection />
         <SkillsSection />
 
         <footer className="home-footer">
-          <p>© 2026 — Tu Nombre</p>
+          <p>© 2026 — Nicolás Escolar</p>
         </footer>
       </main>
     </>
