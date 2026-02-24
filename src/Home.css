@@ -542,22 +542,47 @@ html, body {
   font-weight: 700;
 }
 
+/* ============================================================
+   MOBILE FIX — Projects Section
+   ============================================================ */
 @media (max-width: 768px) {
+
+  /* Ajuste general del section */
   .projects-section {
-    padding-left: 10px;
-    padding-right: 10px;
-    overflow-x: hidden; /* extra safety */
+    padding-left: 16px;
+    padding-right: 16px;
+    overflow-x: hidden; /* evita scroll horizontal */
   }
 
+  /* Grid superior y inferior en mobile */
   .projects-grid-top,
   .projects-grid-bottom {
-    grid-template-columns: 1fr !important;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr;   /* 1 columna */
+    justify-items: center;        /* centra cada card horizontalmente */
+    gap: 16px;                    /* espacio entre cards */
   }
 
-  .project-card {
-    width: 100% !important;
+  /* Cards wrapper para limitar ancho */
+  .project-card-wrapper {
+    width: 100%;                  /* ocupa todo el ancho posible del grid */
+    max-width: 400px;             /* opcional, evita que se estiren demasiado */
   }
+
+  /* Featured card más grande pero centrada */
+  .project-card-featured {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;               /* centra en mobile */
+  }
+
+  /* Ajustes generales de padding para la sección Skills y About si hace falta */
+  .skills-section,
+  .about-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
 }
 
 /* ---------- Featured image fix ---------- */
