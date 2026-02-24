@@ -543,11 +543,20 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  .about-section {
-    padding: 60px 20px;
+  .projects-section {
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow-x: hidden; /* extra safety */
   }
-  .project-card-featured {
-    height: 300px;
+
+  .projects-grid-top,
+  .projects-grid-bottom {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .project-card {
+    width: 100% !important;
   }
 }
 
