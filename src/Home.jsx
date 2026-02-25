@@ -3,29 +3,138 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardFooter, Image, Button } from "@heroui/react";
 import ingeniaPrintImg from "./assets/IngeniaPrint.png";
 import ScouterImg from "./assets/Scouter.png";
+import FloatingLines from "./FloatingLines";
 import "./Home.css";
 
-// ============================================================
-// PROYECTOS — config manual
-// ============================================================
-const GITHUB_USER = import.meta.env.VITE_GITHUB_USER;
-const TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+const GITHUB_USER = import.meta.env.VITE_GITHUB_USER || "Nico0105";
 
 const REPOS_CONFIG = [
   { name: "Ingenia-Print-Campus", customImage: ingeniaPrintImg },
-  { name: "GestorEntrenamientos",  customImage: null },
-  { name: "Scouter",               customImage: ScouterImg },
+  { name: "GestorEntrenamientos", customImage: null },
+  { name: "Scouter", customImage: ScouterImg },
 ];
 
 // ============================================================
-// SKILLS DATA — SVG icons inline
+// SKILLS
 // ============================================================
 const SKILLS = [
-  // JavaScript, Java, SQL, Node.js, Express.js, HTML, CSS, Python, Tailwind CSS
+  {
+    name: "JavaScript",
+    color: "#F7DF1E",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="3" fill="#F7DF1E"/>
+        <path d="M9 24.3l2.1-1.3c.4.7.8 1.3 1.6 1.3.8 0 1.3-.3 1.3-1.6V14h2.6v8.8c0 2.6-1.5 3.8-3.8 3.8-2 0-3.2-1-3.8-2.3zM18.5 24l2.1-1.3c.6.9 1.3 1.6 2.6 1.6 1.1 0 1.7-.5 1.7-1.2 0-.9-.7-1.2-1.8-1.7l-.6-.3c-1.9-.8-3.1-1.8-3.1-3.9 0-1.9 1.5-3.3 3.7-3.3 1.6 0 2.8.6 3.6 2l-2 1.3c-.4-.8-.9-1.1-1.6-1.1-.8 0-1.2.5-1.2 1.1 0 .7.5 1 1.5 1.5l.6.3c2.2.9 3.4 1.9 3.4 4 0 2.3-1.8 3.5-4.2 3.5-2.3 0-3.8-1.1-4.7-2.5z" fill="#000"/>
+      </svg>
+    ),
+  },
+  {
+    name: "TypeScript",
+    color: "#3178C6",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="3" fill="#3178C6"/>
+        <path d="M18.2 17.4H20.4V15.8H13.5v1.6h2.2V25h2.5V17.4zM21.8 22.5c0 1.4 1.1 2.7 3.2 2.7 2 0 3.3-1 3.3-2.8 0-1.4-.9-2.2-2.4-2.8l-.7-.3c-.8-.3-1.1-.6-1.1-1.1 0-.5.4-.8 1-.8.7 0 1 .4 1.3 1l1.7-1c-.5-1.1-1.5-1.8-3-1.8-1.9 0-3.1 1.1-3.1 2.7 0 1.3.9 2.1 2.2 2.7l.7.3c.9.4 1.4.7 1.4 1.2 0 .6-.5.9-1.2.9-.9 0-1.4-.6-1.8-1.3l-1.8 1z" fill="#fff"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Node.js",
+    color: "#5FA04E",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 3L4 9.8v12.4L16 29l12-6.8V9.8L16 3z" fill="#5FA04E"/>
+        <path d="M16 7.5l-7.5 4.3v8.4L16 24.5l7.5-4.3v-8.4L16 7.5z" fill="#3E7A34"/>
+        <circle cx="16" cy="16" r="3.5" fill="#fff"/>
+        <path d="M16 12.5v7M12.5 16h7" stroke="#5FA04E" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Python",
+    color: "#3776AB",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.9 3C10.5 3 10.8 5.4 10.8 5.4v2.7h5.3v.9H8.5S5 8.6 5 14c0 5.5 3 5.3 3 5.3h1.9v-2.6s-.1-3 3-3h5.2s2.9.1 2.9-2.8V6S21.5 3 15.9 3zm-3 1.7c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9z" fill="#3776AB"/>
+        <path d="M16.1 29c5.4 0 5.1-2.4 5.1-2.4v-2.7h-5.3v-.9h7.6S27 22.4 27 17c0-5.5-3-5.3-3-5.3h-1.9v2.6s.1 3-3 3h-5.2s-2.9-.1-2.9 2.8V25S10.5 29 16.1 29zm3-1.7c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9z" fill="#FFD43B"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Express",
+    color: "#ffffff",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="3" fill="#1a1a1a"/>
+        <text x="4" y="21" fontFamily="monospace" fontSize="11" fill="#fff" fontWeight="bold">exp</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Java",
+    color: "#ED8B00",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.3 21.2s-1 .6.7.8c2 .2 3 .2 5.2-.2 0 0 .6.4 1.4.7-4.9 2.1-11.1-.1-7.3-1.3" fill="#0074BD"/>
+        <path d="M11.7 18.4s-1.1.8.6 1c2.1.2 3.8.2 6.7-.3 0 0 .4.4 1 .6-5.9 1.7-12.5.1-8.3-1.3" fill="#0074BD"/>
+        <path d="M17.2 12.5c1.2 1.4-.3 2.6-.3 2.6s3-1.6 1.6-3.6c-1.3-1.8-2.3-2.7 2.5-5.7 0 0-8.2 2.1-3.8 6.7" fill="#EA2D2E"/>
+        <path d="M23.3 22.8s.7.6-.8 1c-2.8.9-11.8 1.1-14.3 0-.9-.4.8-.9 1.3-1.1.5-.1.9-.1.9-.1-1-.7-6.4 1.4-2.7 2 9.9 1.6 18.1-.7 15.6-1.8" fill="#0074BD"/>
+        <path d="M13.1 14.6s-4.5 1.1-1.6 1.5c1.2.2 3.7.1 6-.1 1.9-.2 3.8-.5 3.8-.5s-.7.3-1.1.6c-4.6 1.2-13.5.7-10.9-.6 2.2-1 3.8-.9 3.8-.9" fill="#0074BD"/>
+        <path d="M21.2 19.4c4.7-2.5 2.5-4.8 1-4.5-.4.1-.5.1-.5.1s.1-.2.4-.3c3-1.1 5.3 3.1-1 4.8 0 0 .1-.1.1-.1" fill="#0074BD"/>
+        <path d="M15.6 3S18 5.4 13.3 9.1c-4 3.2-.9 5 0 7.1-2.4-2.1-4.1-4-3-5.7 1.7-2.6 6.4-3.8 5.3-7.5" fill="#EA2D2E"/>
+      </svg>
+    ),
+  },
+  {
+    name: "SQL",
+    color: "#336791",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="16" cy="9" rx="11" ry="4.5" fill="#336791"/>
+        <path d="M5 9v5c0 2.5 4.9 4.5 11 4.5S27 16.5 27 14V9c0 2.5-4.9 4.5-11 4.5S5 11.5 5 9z" fill="#336791" opacity="0.8"/>
+        <path d="M5 14v5c0 2.5 4.9 4.5 11 4.5S27 21.5 27 19v-5c0 2.5-4.9 4.5-11 4.5S5 16.5 5 14z" fill="#336791" opacity="0.6"/>
+        <ellipse cx="16" cy="9" rx="11" ry="4.5" fill="none" stroke="#5ba4cf" strokeWidth="0.8"/>
+        <ellipse cx="16" cy="9" rx="8" ry="2.5" fill="#5ba4cf" opacity="0.25"/>
+      </svg>
+    ),
+  },
+  {
+    name: "HTML",
+    color: "#E34F26",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 3l2.2 24L16 29l8.8-2L27 3H5z" fill="#E34F26"/>
+        <path d="M16 27V5h9l-1.9 19L16 27z" fill="#EF652A"/>
+        <path d="M16 13.5h-4.6l-.3-3.4H16V6.7H8l.8 9H16v-2.2zM16 22.8l-3.8-1-.3-2.8H9l.5 5.6L16 26.3v-3.5z" fill="#fff"/>
+        <path d="M16 13.5v2.2h4.3l-.4 4.9-3.9 1v3.5l6.2-1.7.8-9.9H16z" fill="#ebebeb"/>
+      </svg>
+    ),
+  },
+  {
+    name: "CSS",
+    color: "#1572B6",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 3l2.2 24L16 29l8.8-2L27 3H5z" fill="#1572B6"/>
+        <path d="M16 27V5h9l-1.9 19L16 27z" fill="#33A9DC"/>
+        <path d="M16 13.5H8.5l.3 3.4H16v-3.4zM16 6.7H7.8l.3 3.4H16V6.7z" fill="#fff"/>
+        <path d="M16 22.8l-3.8-1-.3-2.9H9l.5 5.6L16 26.3v-3.5zM16 13.5v3.4h4l-.4 4.8-3.6 1v3.5l6.2-1.7.9-11H16z" fill="#ebebeb"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Tailwind",
+    color: "#06B6D4",
+    svg: (
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 7c-3.4 0-5.6 1.7-6.4 5.1 1.3-1.7 2.7-2.3 4.3-1.9 .93.23 1.6.93 2.35 1.7C17.6 13.3 19.1 15 22.5 15c3.4 0 5.6-1.7 6.4-5.1-1.3 1.7-2.7 2.3-4.3 1.9-.93-.23-1.6-.93-2.35-1.7C20.9 8.7 19.4 7 16 7zM9.5 15c-3.4 0-5.6 1.7-6.4 5.1 1.3-1.7 2.7-2.3 4.3-1.9.93.23 1.6.93 2.35 1.7C11.1 21.3 12.6 23 16 23c3.4 0 5.6-1.7 6.4-5.1-1.3 1.7-2.7 2.3-4.3 1.9-.93-.23-1.6-.93-2.35-1.7C14.4 16.7 12.9 15 9.5 15z" fill="#06B6D4"/>
+      </svg>
+    ),
+  },
 ];
 
 // ============================================================
-// ZOOM TITLE
+// ZOOM TITULO
 // ============================================================
 function ZoomTitle({ text, start }) {
   return (
@@ -57,10 +166,7 @@ function LoadingScreen({ onFinish }) {
       if (current >= 100) {
         clearInterval(interval);
         setTimeout(() => setDone(true), 600);
-        setTimeout(() => {
-          setVisible(false);
-          if (onFinish) onFinish();
-        }, 1400);
+        setTimeout(() => { setVisible(false); if (onFinish) onFinish(); }, 1400);
       }
     }, 60);
     return () => clearInterval(interval);
@@ -72,18 +178,11 @@ function LoadingScreen({ onFinish }) {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
-          key="loader"
-          className="loader-wrapper"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-        >
+        <motion.div key="loader" className="loader-wrapper" initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8, ease: "easeInOut" }}>
           <div className="loader-grain" />
           <div className="loader-ambient" style={{ background: `radial-gradient(circle, ${neonColor}08 0%, transparent 70%)` }} />
           <motion.div className="loader-percentage" animate={{ opacity: done ? 0 : 1 }} transition={{ duration: 0.3 }} style={{ color: neonColor, textShadow: glowStrength }}>
-            {progress}
-            <span className="loader-percentage-symbol">%</span>
+            {progress}<span className="loader-percentage-symbol">%</span>
           </motion.div>
           <div className="loader-bar-container">
             <div className="loader-bar-labels" style={{ color: `${neonColor}80` }}>
@@ -109,7 +208,77 @@ function LoadingScreen({ onFinish }) {
 }
 
 // ============================================================
-// PROJECTS SECTION
+// SOBRE MI
+// ============================================================
+function AboutSection() {
+  const stats = [
+    { value: "9/10",   label: "Promedio académico" },
+    { value: "≈3.8",   label: "GPA equivalente" },
+    { value: "ARG 🇦🇷", label: "Freelance global" },
+    { value: "3er año",label: "Analista de Sistemas" },
+  ];
+
+  return (
+    <motion.section className="about-section" initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.7, ease: "easeOut" }}>
+      <div className="about-header">
+        <span className="section-number-label">01</span>
+        <h3 className="section-title">Sobre mí</h3>
+      </div>
+      <div className="about-layout">
+        <div className="about-text-block">
+          <p className="about-text">
+            Soy <span className="about-highlight">Nicolás Escolar</span>, desarrollador Full Stack con foco en web. Construyo desde e-commerce y campus virtuales hasta landings y aplicaciones completas, siempre con atención al detalle y a la experiencia del usuario.
+          </p>
+          <p className="about-text">
+            Actualmente curso el <span className="about-highlight">último año de Analista de Sistemas</span> con promedio 9/10, y trabajo de forma freelance desde <span className="about-highlight">Argentina</span> para clientes alrededor del mundo. Me manejo con fluidez en todo el stack: frontend, backend, bases de datos y despliegue.
+          </p>
+          <p className="about-text">
+            Cada proyecto es una oportunidad para escribir código limpio, pensar en escalabilidad y entregar algo que realmente funcione.
+          </p>
+          <div className="about-tags">
+            {["Full Stack", "Freelance", "Web Dev", "Disponible"].map((t) => (
+              <span key={t} className="about-tag">{t}</span>
+            ))}
+          </div>
+        </div>
+        <div className="about-stats">
+          {stats.map((s, i) => (
+            <motion.div key={s.label} className="about-stat-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 * i, duration: 0.5 }}>
+              <span className="about-stat-value">{s.value}</span>
+              <span className="about-stat-label">{s.label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// ============================================================
+// SKILLS
+// ============================================================
+function SkillsSection() {
+  return (
+    <motion.section className="skills-section" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.6 }}>
+      <div className="skills-header">
+        <span className="section-number-label">02</span>
+        <h3 className="section-title">Skills</h3>
+      </div>
+      <div className="skills-grid">
+        {SKILLS.map((skill, i) => (
+          <motion.div key={skill.name} className="skill-card" style={{ "--skill-color": skill.color }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 * i, duration: 0.4 }} whileHover={{ scale: 1.06 }}>
+            <div className="skill-glow" />
+            <div className="skill-icon">{skill.svg}</div>
+            <p className="skill-name">{skill.name}</p>
+          </motion.div>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
+// ============================================================
+// PROYECTOS
 // ============================================================
 function ProjectsSection() {
   const [projects, setProjects] = useState([]);
@@ -120,13 +289,14 @@ function ProjectsSection() {
       try {
         const results = await Promise.all(
           REPOS_CONFIG.map(({ name }) =>
-            fetch(`https://api.github.com/repos/${GITHUB_USER}/${name}`, {
-              headers: { Authorization: `token ${TOKEN}` },
-            }).then(r => r.json())
+            fetch(`https://api.github.com/repos/${GITHUB_USER}/${name}`).then((r) => {
+              if (!r.ok) throw new Error(`Error ${r.status} for ${name}`);
+              return r.json();
+            })
           )
         );
-        const merged = results.map(repo => {
-          const config = REPOS_CONFIG.find(r => r.name === repo.name);
+        const merged = results.map((repo) => {
+          const config = REPOS_CONFIG.find((r) => r.name === repo.name);
           return { ...repo, customImage: config?.customImage ?? null };
         });
         setProjects(merged);
@@ -147,13 +317,12 @@ function ProjectsSection() {
   const rest = projects.slice(1, 3);
 
   return (
-    <motion.section className="projects-section" initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.7, ease: "easeOut" }}>
+    <motion.section className="projects-section" initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.7, ease: "easeOut" }}>
       <div className="projects-header">
-        <span className="section-number-label">02</span>
+        <span className="section-number-label">03</span>
         <h3 className="section-title">Proyectos</h3>
       </div>
 
-      {/* Featured — 1 grande */}
       {featured && (
         <motion.div className="project-card-wrapper project-card-featured" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
           <a href={featured.html_url} target="_blank" rel="noopener noreferrer" className="project-card-link">
@@ -171,7 +340,6 @@ function ProjectsSection() {
         </motion.div>
       )}
 
-      {/* 2 abajo */}
       <div className="projects-grid-bottom">
         {rest.map((project, i) => (
           <motion.div key={project.id} className="project-card-wrapper" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 + 0.1 * i, duration: 0.5 }}>
@@ -201,39 +369,40 @@ function ProjectsSection() {
 }
 
 // ============================================================
-// SKILLS SECTION
-// ============================================================
-function SkillsSection() {
-  return (
-    <motion.section className="skills-section" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
-      <div className="skills-header">
-        <span className="section-number-label">01</span>
-        <h3 className="section-title">Skills</h3>
-      </div>
-      <div className="skills-grid">
-        {SKILLS.map((skill) => (
-          <motion.div key={skill.name} className="skill-card" whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 300 }}>
-            <div className="skill-icon" style={{ color: skill.color }}>{skill.svg}</div>
-            <p>{skill.name}</p>
-          </motion.div>
-        ))}
-      </div>
-    </motion.section>
-  );
-}
-
-// ============================================================
-// HOME PAGE
+// HOME
 // ============================================================
 export default function Home() {
   const [loadingDone, setLoadingDone] = useState(false);
 
   return (
-    <div className="home-page">
+    <div className="home-wrapper">
       {!loadingDone && <LoadingScreen onFinish={() => setLoadingDone(true)} />}
       {loadingDone && (
         <>
-          <ZoomTitle text="Hola, soy Nico" start={loadingDone} />
+          <section className="home-hero">
+            {/* Aurora Three.js — lento, neon, con hover */}
+            <FloatingLines
+              enabledWaves={["top", "middle", "bottom"]}
+              lineCount={5}
+              lineDistance={5}
+              animationSpeed={0.35}
+              bendRadius={5}
+              bendStrength={-0.5}
+              interactive={true}
+              parallax={true}
+              parallaxStrength={0.15}
+              linesGradient={["#001aff", "#0066ff", "#00aaff", "#00ddff"]} 
+             mixBlendMode="screen"
+            />
+            <div className="hero-content">
+              <ZoomTitle text="Nicolas Escolar" start={loadingDone} />
+              <motion.p className="home-subtitle" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.7 }}>
+                Desarrollador Full Stack · Freelance
+              </motion.p>
+            </div>
+          </section>
+
+          <AboutSection />
           <SkillsSection />
           <ProjectsSection />
         </>
