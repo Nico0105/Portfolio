@@ -648,3 +648,41 @@ html, body {
   50% { transform: translate(-3px, 0); }
   75% { transform: translate(2px, 0); }
 }
+
+/* ---------- Agregar al final de Home.css ---------- */
+
+.lang-switcher {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 4px;
+  backdrop-filter: blur(12px);
+}
+
+.lang-btn {
+  font-family: "DM Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.lang-btn--active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
