@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardFooter, Image, Button } from "@heroui/react";
 import ingeniaPrintImg from "./assets/IngeniaPrint.png";
 import ScouterImg from "./assets/Scouter.png";
+import GestorEntrenosImg from "./assets/GestorEntrenos.png";
 import FloatingLines from "./FloatingLines";
 import { translations, LANGS } from "./Idiomas";
 import "./Home.css";
@@ -11,7 +12,7 @@ const GITHUB_USER = import.meta.env.VITE_GITHUB_USER || "Nico0105";
 
 const REPOS_CONFIG = [
   { name: "Ingenia-Print-Campus", customImage: ingeniaPrintImg },
-  { name: "GestorEntrenamientos", customImage: null },
+  { name: "GestorEntrenamientos", customImage: GestorEntrenosImg },
   { name: "Scouter", customImage: ScouterImg },
 ];
 

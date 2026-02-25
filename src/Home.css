@@ -182,10 +182,12 @@ html, body {
 .home-subtitle {
   font-family: "Outfit", sans-serif;
   font-size: clamp(0.75rem, 1.6vw, 1rem);
-  color: rgba(255, 255, 255, 0.75);
+  color: #eaf6ff;
+  padding-top: 15px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   margin: 0;
+  text-shadow: 0 0 4px rgba(0, 212, 255, 0.35);
 }
 
 /* ---------- Shared section labels ---------- */
@@ -419,12 +421,12 @@ html, body {
 
 .projects-grid-bottom {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 .project-card-wrapper {
-  height: 300px;
+  height: 320px;
 }
 
 .project-card-link {
@@ -561,42 +563,32 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  .about-section,
-  .skills-section,
-  .projects-section {
-    padding-left: 20px;
-    padding-right: 20px;
+  .project-card-button,
+  .project-github-btn,
+  .project-footer-button {
+    display: none !important;
   }
+
+  .project-card-wrapper,
+  .project-card-featured {
+    height: 320px !important;
+    width: auto !important;
+  }
+
+}
+/* ===============================
+   MOBILE CHICO
+   =============================== */
+@media (max-width: 480px) {
 
   .about-stats {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .projects-grid-bottom {
     grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .project-card-wrapper {
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  .project-card-featured {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 16px;
   }
 
   .skills-grid {
-    grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .home-title {
-    letter-spacing: -2px;
-  }
 }
 
 /* ------------------------------------------------
