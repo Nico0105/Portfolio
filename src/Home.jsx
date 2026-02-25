@@ -157,7 +157,7 @@ function LoadingScreen({ onFinish, lang }) {
 // ============================================================
 function AboutSection({ lang }) {
   const t = translations[lang];
-  const statValues = ["9/10", "≈3.8", "ARG 🇦🇷", "5to año"];
+  const statValues = ["9/10", "≈3.8", "ARG 🇦🇷", "3er Año"];
 
   return (
     <motion.section className="about-section" initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.7, ease: "easeOut" }}>
