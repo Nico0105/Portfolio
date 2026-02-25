@@ -25,7 +25,7 @@ export const translations = {
 
     aboutLabel: "About me",
     aboutP1: (name) => `I'm <b>${name}</b>, a Full Stack developer focused on web. I build everything from e-commerce and virtual campuses to landing pages and full applications, always with attention to detail and user experience.`,
-    aboutP2: `I'm currently in my <b>final year of Systems Analysis</b> with a 8,80 GPA, and I work freelance from <b>Argentina</b> for clients around the world. I'm fluent across the full stack: frontend, backend, databases and deployment.`,
+    aboutP2: `I'm currently in my <b>final year of Systems Analysis</b> with a 3.8 GPA, and I work freelance from <b>Argentina</b> for clients around the world. I'm fluent across the full stack: frontend, backend, databases and deployment.`,
     aboutP3: "Every project is a chance to write clean code, think about scalability and deliver something that truly works.",
     tags: ["Full Stack", "Freelance", "Web Dev", "Available"],
 
